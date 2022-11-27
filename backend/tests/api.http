@@ -1,0 +1,41 @@
+@base_url=http://localhost:5000
+@users_url={{base_url}}/api/users
+###
+GET {{base_url}}/
+
+### Liste des utilisateurs
+GET {{users_url}}
+
+### Liste 1 utilisateur
+# ID Bob
+#@user_id=dcd4da4c436b4dd8904d7dec00457c46
+# ID John
+# @user_id=4c6adb7c3cef45a2a3d9bc8a969f1846
+@user_id={{createuser.response.body._id}}
+GET {{users_url}}/{{user_id}}
+
+
+### Creation d'un utilisateur
+# @name createuser
+POST {{users_url}}
+Content-Type: application/json
+
+{
+    "name": "John",
+    "email": "john@mydomain.com",
+    "password": "MonPassword"
+}
+
+### MAJ
+PUT {{users_url}}/{{user_id}}
+Content-Type: application/json
+
+{
+    "_id": "{{user_id}}",
+    "name": "John3",
+    "email": "john@mydomain.com",
+    "password": "MonPassword"
+}
+
+### Suppression d'1 user
+DELETE {{users_url}}/{{user_id}}
